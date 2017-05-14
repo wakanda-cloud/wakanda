@@ -6,9 +6,9 @@ if (process.env.REDISTOGO_URL) {
     redisClient = require("redis").createClient(rtg.port, rtg.hostname);
     redisClient.auth(rtg.auth.split(":")[1]);
 } else {
-    var config = require('../config/config');
-    redisClient = redis.createClient(config.redisConf);
-    redisClient.auth(config.redisConf.password);
+    //var config = require('../config/config');
+    //redisClient = redis.createClient(config.redisConf);
+    //redisClient.auth(config.redisConf.password);
 }
 
 redisClient.on('connect', function() {
