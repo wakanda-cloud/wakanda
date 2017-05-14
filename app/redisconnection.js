@@ -11,7 +11,7 @@ if (process.env.REDISCLOUD_URL) {
 
 redisClient.on('connect', function() {
     var environment = process.env.REDISCLOUD_URL ? 'production' : 'developer';
-    console.log('redis %s production environment connected', environment);
+    console.log('Redis %s environment connected', environment);
 });
 
 module.exports = redisClient;
