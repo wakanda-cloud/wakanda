@@ -15,9 +15,10 @@ process.on('uncaughtException', function (error) {
 app.get('/listStatistics', routes.listStatistics);
 app.post('/registerStatistic', routes.registerStatistic);
 
-var server = app.listen(config.port, function () {
-    var host = server.address().address;
-    var port = server.address().port;
-    console.log("Listening at http://%s:%s", host, port)
+app.set('port', (process.env.PORT || 3000));
 
+app.listen(app.get('port'), function () {
+    var host = process.env.host;
+    var port = app.get('port');
+    console.log("Listening at http://%s:%s", host, port)
 });
