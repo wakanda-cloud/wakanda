@@ -5,7 +5,7 @@ var sleep = require('sleep');
 
 function verifyAuth(token, res) {
     if(process.env.SECURITY_TOKEN && token !== process.env.SECURITY_TOKEN) {
-        res.status(401);
+        res.status(401).send("Unauthorized");
     }
 }
 
