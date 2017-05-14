@@ -2,8 +2,9 @@
 
 class Wakanda {
 
-    constructor(encryptPassword, server) {
+    constructor(encryptPassword, token, server) {
         this.encryptPassword = encryptPassword;
+        this.token = token;
         this.server = server;
         jQuery(".wakanda").bind('click', this.fireRegisterStatistic());
     }
@@ -13,57 +14,63 @@ class Wakanda {
         jQuery.ajax({
             type : "POST",
             contentType : "text",
+            header: 'Access-Control-Allow-Origin: *',
             url : this.server + "/registerStatistic",
             data : wakanda.encrypt(JSON.stringify({
                 "client" : this.client,
                 "module" : this.module,
                 "submodule" : this.submodule,
                 "title" : this.title,
-                "linkClicked" : this.linkClicked
+                "linkClicked" : this.linkClicked,
+                "token":  this.token.call(this)
             })),
             dataType : "text"
         });
     }
 
     set client(client) {
-        this.client = client;
+        this._client = client;
     }
 
     get client() {
-        return this.client;
+        return this._client;
     }
 
     set module(module) {
-        this.module = module;
+        this._module = module;
     }
 
     get module() {
-        this.module;
+        this._module;
     }
 
     set submodule(submodule) {
-        this.submodule = submodule;
+        this._submodule = submodule;
     }
 
     get submodule() {
-        return this.submodule;
+        return this._submodule;
     }
 
     set title(title) {
-        this.title = title;
+        this._title = title;
     }
 
     get title() {
-        return this.title;
+        return this._title;
+    }
+
+    set linkClicked(linkClicked) {
+        this._linkClicked = linkClicked;
     }
 
     get linkClicked() {
-        return this.linkClicked;
+        return this._linkClicked;
     }
 
     encrypt(text) {
-        return CryptoJS.AES.encrypt(text, this.encryptPassword, {
+        return CryptoJS.AES.encrypt(text, this.encryptPassword.call(this), {
             mode: CryptoJS.mode.CTR
-        });
+        }).toString();
     }
 }

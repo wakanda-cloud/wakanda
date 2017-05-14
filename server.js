@@ -16,6 +16,12 @@ process.on('uncaughtException', function (error) {
     console.log("uncaughtException :" + error);
 });
 
+app.all('/', function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
+    next();
+});
+
 var routes = require('./routes');
 app.post('/listStatistics', routes.listStatistics);
 app.post('/registerStatistic', routes.registerStatistic);
