@@ -1,4 +1,3 @@
-var config = require('./config/config');
 var express = require('express');
 var bodyparser = require('body-parser');
 var app = express();
