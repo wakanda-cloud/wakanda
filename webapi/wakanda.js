@@ -6,28 +6,31 @@ class Wakanda {
         this.encryptPassword = encryptPassword;
         this.token = token;
         this.server = server;
-        jQuery(".wakanda").bind('click', this.fireRegisterStatistic());
+        jQuery(".wakanda").bind('click', this.fireRegisterStatistic);
     }
 
     fireRegisterStatistic() {
-        var wakanda = this;
-        jQuery.ajax({
-            type : "POST",
-            contentType : "text",
-            headers: {
-                'Access-Control-Allow-Origin' : '*'
+        var data = this.encrypt(JSON.stringify({
+            "client": this.client,
+            "module": this.module,
+            "submodule": this.submodule,
+            "title": this.title,
+            "linkClicked": this.linkClicked,
+            "token": this.token.call(this)
+        }));
+
+        var settings = {
+            "async": true,
+            "crossDomain": true,
+            "headers" : {
+                "content-type" : "text/plain"
             },
-            url : this.server + "/registerStatistic",
-            data : wakanda.encrypt(JSON.stringify({
-                "client" : this.client,
-                "module" : this.module,
-                "submodule" : this.submodule,
-                "title" : this.title,
-                "linkClicked" : this.linkClicked,
-                "token":  this.token.call(this)
-            })),
-            dataType : "text"
-        });
+            "url": this.server + "/registerStatistic",
+            "method": "POST",
+            "data": data
+        };
+
+        jQuery.post(settings);
     }
 
     set client(client) {
