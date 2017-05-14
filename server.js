@@ -16,11 +16,14 @@ process.on('uncaughtException', function (error) {
     console.log("uncaughtException :" + error);
 });
 
-app.all('/', function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "X-Requested-With");
+var allowCrossDomain = function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'OPTIONS, POST');
+    res.header('Access-Control-Allow-Headers', 'Content-Type');
     next();
-});
+};
+
+app.use(allowCrossDomain);
 
 var routes = require('./routes');
 app.post('/listStatistics', routes.listStatistics);

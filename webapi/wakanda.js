@@ -14,7 +14,9 @@ class Wakanda {
         jQuery.ajax({
             type : "POST",
             contentType : "text",
-            header: 'Access-Control-Allow-Origin: *',
+            headers: {
+                'Access-Control-Allow-Origin' : '*'
+            },
             url : this.server + "/registerStatistic",
             data : wakanda.encrypt(JSON.stringify({
                 "client" : this.client,
