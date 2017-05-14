@@ -17,6 +17,8 @@ class FetchStatisticService {
     }
 
     convertAllDataToJSON(data, next) {
+        if(data === undefined) next.call(this, []);
+
         var jsonData = [];
         data.forEach(function (data) {
             jsonData.push(JSON.parse(data));
