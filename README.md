@@ -79,10 +79,10 @@ var token = function() {
 
 //You need to set the general wakanda data in this moment too like, client, module, submodule and title;
 var wakanda = new Wakanda(password, token, 'http://yourwakandaserver.com'); //Server URL to call
-wk.client = '7894';
-wk.module = 'Some Module';
-wk.submodule = 'Some Submodule';
-wk.title = 'Some Title';
+wakanda.client = '7894';
+wakanda.module = 'Some Module';
+wakanda.submodule = 'Some Submodule';
+wakanda.title = 'Some Title';
 
 //Wakanda by default will get property 'alt' of your element and will set as the linkClicked property, 
 //if alt property does not exists will get innerHTML;
