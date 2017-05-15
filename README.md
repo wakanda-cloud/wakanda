@@ -14,12 +14,16 @@ This service was created to help developers a register statistic of use of your 
 Have to ways to communicate with wakanda:<br>
 
 ```POST -> /listStatistic```<br>
+```json
+"client": "",
+"token": ""
+```
+
 <br>
 ```Send '*' to list all statistics;```<br>
 ```Send "client code" to list all statistics by this client;```<br>
 
 ```POST -> /registerStatistic```<br>
-<br>
 
 JSON FORMAT
 ```json
