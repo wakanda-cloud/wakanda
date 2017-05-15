@@ -34,8 +34,11 @@ JSON FORMAT
 "token": ""
 ```
 *For now its a fixed layout to register statistics;<br>
+
+To init server just clone and run 
+```npm start```
 <br>
-<h2> Usage </h2>
+<h2> API Usage </h2>
 <h3>Import this scripts on your HTML page</h3>
 
 ```html
