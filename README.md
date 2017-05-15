@@ -45,7 +45,7 @@ To init server just clone and run
 <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js"></script><br>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/aes.js"></script><br>
 <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script><br>
-<script src="https://cdn.jsdelivr.net/gh/lucasventurasc/wakanda@v1.0/webapi/wakanda.js"></script><br>
+<script src="https://cdn.jsdelivr.net/gh/lucasventurasc/wakanda@v1.1/webapi/wakanda.js"></script><br>
 ```
 <h3> Instance Wakanda as global variable</h3>
 
