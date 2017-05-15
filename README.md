@@ -48,9 +48,9 @@ To init server just clone and run
 <script src="https://cdn.jsdelivr.net/gh/lucasventurasc/wakandanode@1.0/webapi/wakanda.js"></script><br>
 ```
 <h3> Instance Wakanda as global variable</h3>
+
 This will bind your DOM Elements with ".wakanda" class to fire statistic register when clicked<br>
 Wakanda expect password, token and server in your constructor<br><br>
-
 ```html
 <button class="wakanda">Save</button>
 ```
@@ -91,15 +91,7 @@ wk.title = 'Some Title';
 <h3>Security Tips</h3>
 
 * **Your password and token must be stored on a security place in your cloud**<br>
-For example using process.env on heroku to store this words
-See https://devc"module": "",
-20
-"submodule": "",
-21
-"title": "",
-22
-"linkClicked": "",
-23
-enter.heroku.com/articles/config-vars to more detail
+For example using process.env on heroku to store this words<br>
+See https://devcenter.heroku.com/articles/config-vars to more details.
 
 Currently this app works without any change just with the Redis Cloud , if want will use other Redis Service, you need config this manually.
