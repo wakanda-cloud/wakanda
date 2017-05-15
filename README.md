@@ -65,14 +65,7 @@ var password = function() {
 //Token its a any word you want, its be used to verify if token received was valid to server
 var token = function() {
     return 'abcdeifghyjklmnopqrstuvxz';
-};"module": "",
-20
-"submodule": "",
-21
-"title": "",
-22
-"linkClicked": "",
-23
+};
 
 //password and token must be a callback function, its a design pattern to prevent you from cache the password and token on your
 //page, you must get then of your server when you need it
