@@ -50,7 +50,7 @@ To init server just clone and run
 <h3> Instance Wakanda as global variable</h3>
 
 This will bind your DOM Elements with ".wakanda" class to fire statistic register when clicked<br>
-Wakanda expect password, token and server in your constructor<br><br>
+Wakanda expect password, token and server in your constructor;<br>
 ```html
 <button class="wakanda">Save</button>
 ```
