@@ -65,7 +65,15 @@ var password = function() {
 //Token its a any word you want, its be used to verify if token received was valid to server
 var token = function() {
     return 'abcdeifghyjklmnopqrstuvxz';
-};
+};"module": "",
+20
+"submodule": "",
+21
+"title": "",
+22
+"linkClicked": "",
+23
+
 //password and token must be a callback function, its a design pattern to prevent you from cache the password and token on your
 //page, you must get then of your server when you need it
 
@@ -84,6 +92,14 @@ wk.title = 'Some Title';
 
 * **Your password and token must be stored on a security place in your cloud**<br>
 For example using process.env on heroku to store this words
-See https://devcenter.heroku.com/articles/config-vars to more detail
+See https://devc"module": "",
+20
+"submodule": "",
+21
+"title": "",
+22
+"linkClicked": "",
+23
+enter.heroku.com/articles/config-vars to more detail
 
-Currently this app works without any change just with the Redis Cloud , if want will use other Redis Service, you need config this manually
+Currently this app works without any change just with the Redis Cloud , if want will use other Redis Service, you need config this manually.
