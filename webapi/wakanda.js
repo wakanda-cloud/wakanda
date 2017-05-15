@@ -6,17 +6,23 @@ class Wakanda {
         this.encryptPassword = encryptPassword;
         this.token = token;
         this.server = server;
-        jQuery(".wakanda").bind('click', this.fireRegisterStatistic);
+
+        var wakanda = this;
+        jQuery(".wakanda").bind('click', function(event) {
+            wakanda.fireRegisterStatistic(wakanda, event);
+        });
     }
 
-    fireRegisterStatistic() {
-        var data = this.encrypt(JSON.stringify({
-            "client": this.client,
-            "module": this.module,
-            "submodule": this.submodule,
-            "title": this.title,
-            "linkClicked": this.linkClicked,
-            "token": this.token.call(this)
+    fireRegisterStatistic(context, event) {
+        var element = event.target;
+        var altAttribute = element.attributes['alt'];
+        var data = context.encrypt(JSON.stringify({
+            "client": context.client,
+            "module": context.module,
+            "submodule": context.submodule,
+            "title": context.title,
+            "linkClicked": altAttribute === undefined ? element.innerHTML.trim() : altAttribute.value,
+            "token": context.token.call(this)
         }));
 
         var settings = {
@@ -25,7 +31,7 @@ class Wakanda {
             "headers" : {
                 "content-type" : "text/plain"
             },
-            "url": this.server + "/registerStatistic",
+            "url": context.server + "/registerStatistic",
             "method": "POST",
             "data": data
         };
