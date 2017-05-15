@@ -19,7 +19,6 @@ Have to ways to communicate with wakanda:<br>
 "token": ""
 ```
 
-<br>
 ```Send '*' to list all statistics;```<br>
 ```Send "client code" to list all statistics by this client;```<br>
 
