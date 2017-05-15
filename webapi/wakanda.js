@@ -6,6 +6,7 @@ class Wakanda {
         this.encryptPassword = encryptPassword;
         this.token = token;
         this.server = server;
+        this.async = true;
 
         var wakanda = this;
         jQuery(".wakanda").bind('click', function(event) {
@@ -26,7 +27,7 @@ class Wakanda {
         }));
 
         var settings = {
-            "async": true,
+            "async": this._async,
             "crossDomain": true,
             "headers" : {
                 "content-type" : "text/plain"
@@ -77,6 +78,10 @@ class Wakanda {
 
     get linkClicked() {
         return this._linkClicked;
+    }
+    
+    set async(isAsync) {
+        this._async = isAsync;
     }
 
     encrypt(text) {
