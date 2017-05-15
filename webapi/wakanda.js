@@ -13,9 +13,9 @@ class Wakanda {
             wakanda.fireRegisterStatistic(wakanda, event);
         });
     }
-
+ 
     fireRegisterStatistic(context, event) {
-        var element = event.target;
+        var element = event.currentTarget;
         var altAttribute = element.attributes['alt'];
         var data = context.encrypt(JSON.stringify({
             "client": context.client,
@@ -32,14 +32,25 @@ class Wakanda {
             "headers" : {
                 "content-type" : "text/plain"
             },
+            "contentType" : "text/plain",
             "url": context.server + "/registerStatistic",
             "method": "POST",
             "data": data
         };
 
-        jQuery.post(settings);
+        jQuery.ajax({
+        	"async": this._async,
+            "crossDomain": true,
+            "headers" : {
+                "content-type" : "text/plain"
+            },
+            "contentType" : "text/plain",
+            "url": context.server + "/registerStatistic",
+             "type": "POST",
+            "data": data
+        });
+        
     }
-
     set client(client) {
         this._client = client;
     }
