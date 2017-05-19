@@ -20,5 +20,6 @@ var cors = require('cors');
 app.use(cors());
 
 var routes = require('./routes');
-app.post('/listStatistics', routes.listStatistics);
+app.get('/listStatistics', routes.listStatisticsGet);
+app.post('/listStatistics', routes.listStatisticsPost);
 app.post('/registerStatistic', routes.registerStatistic);
