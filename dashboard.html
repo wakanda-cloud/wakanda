@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Wakanda Dashboard</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="webresources/dashboard.css" type="text/css" media="screen"/>
+    <script src="webresources/api/jquery-2.2.4.min.js"></script>
+    <script src="webresources/api/jqvmap.map.js"></script>
+    <script src="webresources/api/maps/jquery.vmap.brazil.js" charset="utf-8"></script>
+    <script src="webresources/api/typed.min.js"></script>
+    <script src="webresources/mapController.js"></script>
+</head>
+<body>
+<div id="container">
+    <div class="subtitle second-color">
+        <span id="contentSubtitle"></span>
+    </div>
+    <div id="map" style=""></div>
+</div>
+</body>
+</html>
+<script>
+    var mapContainer = 'map';
+
+    var mapController = null;
+    $(function () {
+        mapController = new MapController(mapContainer);
+        mapController.renderMap();
+
+        effects();
+    });
+
+    function effects() {
+        Typed.new('#contentSubtitle', {
+            strings: ["WAKANDA ^500 DASHBOARD"],
+            typeSpeed: 30,
+            showCursor: true,
+            callback: function () {
+                $("#" + mapContainer).animate({zoom: '110%'}, "slow", function() {
+                    $('.jqvmap-pin').fadeIn(1500, function() {
+                        /*$('.jqvmap-pin').fadeOut(1500, "linear");*/
+                    });
+                });
+                $('.typed-cursor').fadeOut(2600, "linear");
+            }
+        });
+    }
+
+</script>
