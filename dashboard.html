@@ -4,8 +4,9 @@
     <title>Wakanda Dashboard</title>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="webresources/dashboard.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="webresources/api/jquery-jvectormap-2.0.3.css" type="text/css" media="screen"/>
     <script src="webresources/api/jquery-2.2.4.min.js"></script>
-    <script src="webresources/api/jqvmap.map.js"></script>
+    <script src="webresources/api/jquery-jvectormap-2.0.3.min.js" charset="utf-8"></script>
     <script src="webresources/api/maps/jquery.vmap.brazil.js" charset="utf-8"></script>
     <script src="webresources/api/typed.min.js"></script>
     <script src="webresources/mapController.js"></script>
@@ -15,18 +16,17 @@
     <div class="subtitle second-color">
         <span id="contentSubtitle"></span>
     </div>
-    <div id="map" style=""></div>
+    <div id="map"></div>
 </div>
 </body>
 </html>
 <script>
-    var mapContainer = 'map';
+    var mapContainer = '#map';
 
     var mapController = null;
     $(function () {
         mapController = new MapController(mapContainer);
         mapController.renderMap();
-
         effects();
     });
 
@@ -36,7 +36,7 @@
             typeSpeed: 30,
             showCursor: true,
             callback: function () {
-                $("#" + mapContainer).animate({zoom: '110%'}, "slow", function() {
+                $(mapContainer).animate({zoom: '105%'}, "slow", function() {
                     $('.jqvmap-pin').fadeIn(1500, function() {
                         /*$('.jqvmap-pin').fadeOut(1500, "linear");*/
                     });

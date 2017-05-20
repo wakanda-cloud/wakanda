@@ -7,6 +7,7 @@
 
 body {
     background-color: #1a1a1a;
+    overflow: hidden;
 }
 
 #container {
@@ -26,8 +27,9 @@ body {
     position: relative;
     float: right;
     width: 700px;
-    height: 500px;
-    margin-top: -70px;
+    height: 600px;
+    margin-top: -100px;
+    margin-right: -100px;
 }
 
 .jqvmap-pin {

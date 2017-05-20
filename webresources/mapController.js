@@ -6,25 +6,32 @@ class MapController {
 
     renderMap() {
         var settings = {
+            container: $(this._divMapContainer),
             map : 'brazil_br',
             backgroundColor: '#1a1a1a',
-            normalizeFunction: 'linear',
+            normalizeFunction: 'polynomial',
             showTooltip: false,
-            borderWidth: 0.5,
-            borderOpacity: 1,
-            borderColor: 'white',
-            color: '#444444',
-            hoverColor: '#888888',
-            selectedColor: '#00ffd1',
-            showLabels: true,
-            onRegionClick: function (element, code, region) {
-                console.log(region,code.toUpperCase());
+            zoomButtons : false,
+            regionStyle: {
+                initial : {
+                    fill : '#555555',
+                    "stroke" : '#a0a0a0',
+                    "stroke-width": '0.5px',
+                    "stroke-opacity": 1
+                }
             },
+            showLabels: true,
+            markers: []
         };
-        $('#' + this._divMapContainer).vectorMap(settings);
+
+        this._map = new jvm.Map(settings);
         $('*[for="sc"]').css('margin-top', '-15px').css('margin-left', '-10px');
         $('*[for="rj"]').css('margin-top', '-5px');
         $('*[for="rs"]').css('margin-top', '-10px');
         $('*[for="pi"]').css('margin-left', '-10px');
+    }
+
+    get map() {
+        return this._map;
     }
 }
