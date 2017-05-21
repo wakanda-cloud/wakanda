@@ -11,7 +11,7 @@ This service was created to help developers a register statistic of use of your 
 
 <h2> Its simple </h2>
 
-Have to ways to communicate with wakanda:<br>
+Have two ways to communicate with wakanda:<br>
 
 ```POST -> /listStatistic```<br>
 ```json
