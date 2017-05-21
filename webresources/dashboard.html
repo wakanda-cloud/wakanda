@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Wakanda Dashboard</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="js/dashboard.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="api/jquery-jvectormap-2.0.3.css" type="text/css" media="screen"/>
+    <script src="api/jquery-2.2.4.min.js"></script>
+    <script src="api/jquery-jvectormap-2.0.3.js" charset="utf-8"></script>
+    <script src="api/maps/jquery.vmap.brazil.js" charset="utf-8"></script>
+    <script src="api/maps/jquery.vmap.world2.js" charset="utf-8"></script>
+    <script src="api/typed.min.js"></script>
+    <script src="api/chart.bundle.js"></script>
+    <script src="js/dashboardEvents.js"></script>
+</head>
+<body>
+    <div class="subtitle second-color">
+        <span id="contentSubtitle"></span>
+    </div>
+    <div id="container">
+        <div id="mostfeaturesaccessed" class="dashboardWidget leftWidget">
+            <div class="dashtitle" style="color:white">
+                Most popular features <span style="font-size:11px">(Last 30 days)</span>
+                <a id="changePeriodPopularFeatures" class="second-color buttonLink">Change</a></td>
+            </div>
+            <div style="padding-left:15px;margin-right:10px;margin-top:20px">
+                <canvas id="mostfeaturesaccessedChart" width="400" height="250"></canvas>
+            </div>
+        </div>
+        <div id="map" class="dashboardWidget rightWidget">
+            <div class="dashtitle" style="color:white">
+                Statistics by region
+            </div>
+        </div>
+
+        <div id="statisticFrequency" class="dashboardWidget leftWidget">
+            <div class="dashtitle" style="color:white;cursor:default">
+                Frequency of received statistics
+                <a id="previousWeek" class="second-color buttonLink">Previous</a></td> |
+                <a id="nextWeek" class="second-color buttonLink">Next</a></td>
+                <canvas id="frequencyChart" width="400" height="150"></canvas>
+            </div>
+        </div>
+    </div>
+    <div id="footer">
+        <p align="right">
+            <div class="itemFooter" style="float:left !important">
+               <img src="js/light-connected.png"/> Connected
+            </div>
+            <div class="itemFooter">
+                Copyright © 2017 Lucas Ventura
+            </div>
+            <div class="itemFooter">
+                Browse code on GitHub
+            </div>
+            <div class="itemFooter">
+                Terms of use
+            </div>
+        </p>
+    </div>
+</body>
+</html>
+<script>
+
+    var mapContainer = '#map';
+    var map = "";
+
+    $(function () {
+        renderMap();
+        renderChartMostPopularFeatures();
+        renderChartFrequencyStatistics();
+        effects();
+
+        bindButtons();
+    });
+
+    function bindButtons() {
+        var dashboardEvents = new DashboardEvents();
+        $('#nextWeek').bind('click', dashboardEvents.frequencyNextWeek);
+        $('#previousWeek').bind('click', dashboardEvents.frequencyPreviousWeek);
+        $('#changePeriodPopularFeatures').bind('click', dashboardEvents.changePeriodPopularFeatures);
+    }
+
+    function renderChartFrequencyStatistics() {
+        var color = Chart.helpers.color;
+        var chartFrequency = new Chart($('#frequencyChart'), {
+            type: 'line',
+            data: {
+                datasets: [{
+                    label: "Statistics registered on this day",
+                    backgroundColor: color('#4f8ae0').rgbString(),
+                    borderColor: '#4f8ae0',
+                    fill: false,
+                    data: [{
+                        x: '2017-05-15',
+                        y: 10
+                    }, {
+                        x: '2017-05-16',
+                        y: 15
+                    }, {
+                        x: '2017-05-17',
+                        y: 5
+                    }, {
+                        x: '2017-05-18',
+                        y: 20
+                    }, {
+                        x: '2017-05-19',
+                        y: 4
+                    }],
+                }]
+            },
+            options: {
+                responsive: true,
+                title:{
+                    display:true
+                },
+                scales: {
+                    xAxes: [{
+                        type: 'time',
+                        unitStepSize: 1,
+                        time: {
+                            displayFormats: {
+                                'day': 'dddd'
+                            },
+                            unit: 'day',
+                        },
+                    }],
+                    yAxes: [{
+                        display: true,
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Number of statistics'
+                        }
+                    }]
+                }
+            }
+        });
+    }
+
+    function renderChartMostPopularFeatures() {
+        var chartID = 'mostfeaturesaccessedChart';
+        var ctx = $("#" + chartID);
+        Chart.defaults.global.defaultFontColor = '#dddddd';
+        Chart.defaults.global.legend.display = false;
+
+        let generatedColors = getRandomColor(8);
+        var backgroundColors = hexToRgbA(generatedColors,  0.4);
+        var borderColors = hexToRgbA(generatedColors,  1);
+
+        var myChart = new Chart(ctx, {
+            type: 'horizontalBar',
+            data: {
+                labels: ["DDO / Cadastro de Diário de Obra", "DDO / Relatório da Obra", "a", "b", "c", "d", "e", "f", "e"],
+                datasets: [{
+                    label: 'Quantidade de estatisticas registradas',
+                    data: [19, 17, 15, 14, 13, 12, 11, 10, 9],
+                    backgroundColor: backgroundColors,
+                    borderColor: borderColors,
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                legend: {
+                    labels: {
+                        fontColor: "dfdfdf", fontSize: 12
+                    }
+                },
+                yAxes: [{
+                    ticks: {
+                        beginAtZero:true
+                    }
+                }],
+                xAxes: [{
+                    ticks: {
+                        maxTicksLimit: 10,
+                    }
+                }],
+                scales: {
+                }
+            }
+        });
+    }
+
+    function getRandomColor(colorQuantity) {
+        var array = [];
+        for(var z = 0; z < colorQuantity; z++) {
+            var letters = '0123456789ABCDEF'.split('');
+            var color = '#';
+            for (var i = 0; i < 6; i++ ) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            array.push(color);
+        }
+        return array;
+    }
+
+    function validateHex (hex) {
+        if (!/^#([A-Fa-f0-9]{3}){1,2}$/.test(hex)) {
+            throw new Error('Bad Hex');
+        }
+    };
+    function hexToRgbA(hexArray, opacity){
+        var result = [];
+        for(var z = 0; z < hexArray.length; z++) {
+            var hex = hexArray[z];
+            validateHex(hex);
+
+            var c = hex.substring(1).split('');
+            if(c.length === 3){
+                c= [c[0], c[0], c[1], c[1], c[2], c[2]];
+            }
+            c = '0x' + c.join('');
+            result.push('rgba('+[(c>>16)&255, (c>>8)&255, c&255].join(',')+',' + opacity + ')');
+        }
+        return result;
+    }
+
+    function renderMap() {
+        var settings = {
+            map: 'brazil_br',
+            container: $('#map'),
+            scaleColors: ['#C8EEFF', '#0071A4'],
+            normalizeFunction: 'polynomial',
+            hoverOpacity: 0.7,
+            hoverColor: false,
+            zoomButtons: false,
+            zoomOnScroll: false,
+            regionStyle: {
+                initial: {
+                    fill: '#4f8ae0',
+                    "stroke": 'black',
+                    "stroke-width": '0.5px',
+                    "stroke-opacity": 1
+                }
+            },
+            markerStyle: {
+                initial: {
+                    fill: 'yellow',
+                    stroke: '#383f47',
+                    r: 3
+                }
+            },
+            backgroundColor: '#2a2a2a',
+            markers: [
+                {latLng: [-15.795, -47.757778], name: "Distrito Federal"},
+                {latLng: [-27.5717, -48.6256], name: "Florianópolis"},
+                {latLng: [-3.117034, -60.025780], name: "Manaus"},
+                {latLng: [-30.0277, -51.2287], name: "Porto Alegre"}
+            ],
+            focusOn: {
+                scale: 1.60,
+                x: 0,
+                y: 1000
+            }
+        };
+        map = new jvm.Map(settings);
+    };
+
+    function effects() {
+        Typed.new('#contentSubtitle', {
+            strings: ["WAKANDA ^200 DASHBOARD"],
+            typeSpeed: 30,
+            showCursor: true,
+            callback: function () {
+                $('.typed-cursor').fadeOut(2600, "linear");
+            }
+        });
+    }
+
+</script>

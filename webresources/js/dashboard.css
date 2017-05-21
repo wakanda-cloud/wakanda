@@ -1,0 +1,140 @@
+@font-face {
+    font-family: 'Akashi';
+    url('fonts/Akashi.ttf') format('truetype'),
+    font-style: normal;
+    font-weight: normal;
+}
+
+body {
+    background-color: #1b1c1f;
+    overflow-y: auto;
+    overflow-x: hidden;
+    font-family: Akashi;
+}
+
+#container {
+    margin-top:15px;
+}
+
+.subtitle {
+    margin-left: 20px;
+    margin-top: 20px;
+    /*background-color: #000000 !important;*/
+}
+
+.subtitle span {
+    font-size:35px;
+}
+
+#map {
+    width: 550px;
+    height: 470px;
+
+}
+
+#mostfeaturesaccessed {
+    width: 730px;
+    height: 500px;
+}
+
+#statisticFrequency {
+    width: 730px;
+    height: 300px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.rightWidget {
+    margin-right: 15px;
+    float: right;
+}
+
+.leftWidget {
+    margin-left: 15px;
+    float: left;
+}
+
+.dashboardWidget {
+    background-color: #2a2a2a;
+    border-radius: 7px;
+    position: relative;
+}
+
+.buttonLink {
+    color: #1b1c1f;
+    font-size:12px;
+    text-decoration: underline;
+}
+
+.buttonLink:hover {
+    cursor: pointer;
+    color:  #3cb0fd;
+}
+
+.jvectormap-container {
+    border-bottom-left-radius: 7px;
+    border-bottom-right-radius: 7px;
+}
+
+.jvectormap-container svg {
+    margin-top: 10px;
+    margin-left: 40px;
+}
+
+.dashtitle {
+    font-size: 1.1em;
+    margin-top: 10px;
+    padding-left:15px;
+    font-family: "Lucida Grande"
+}
+
+.second-color {
+    /*color:#00FFd1;*/
+    color: #4f8ae0;
+}
+
+.typed-cursor{
+    opacity: 1;
+    -webkit-animation: blink 1.0s infinite;
+    -moz-animation: blink 1.0s infinite;
+    animation: blink 1.0s infinite;
+}
+@keyframes blink{
+    0% { opacity:1; }
+    50% { opacity:0; }
+    100% { opacity:1; }
+}
+@-webkit-keyframes blink{
+    0% { opacity:1; }
+    50% { opacity:0; }
+    100% { opacity:1; }
+}
+@-moz-keyframes blink{
+    0% { opacity:1; }
+    50% { opacity:0; }
+    100% { opacity:1; }
+}
+
+.typed-fade-out{
+    opacity: 0;
+    animation: 0;
+    transition: opacity .25s;
+}
+
+#footer {
+    clear: both;
+    position: relative;
+    z-index: 10;
+    height: 45px;
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+    margin-right: 15px;
+    margin-left:15px;
+}
+
+.itemFooter {
+    float:right;
+    margin-left: 20px;
+    font-size:11px;
+    color:white;
+    font-family: "Lucida Grande"
+}

@@ -42,4 +42,5 @@ function getJsonData(data, res) {
     return JSON.parse(data);
 }
 
+
 module.exports = routes;
