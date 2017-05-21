@@ -50,6 +50,12 @@ class StatisticsByRegionWidget {
             case(2056):
                 return {latLng: [String(-30.0277 +calcRandom()), String(-51.2287 + calcRandom())], name: clientCode, region: 'RS'};
                 break;
+            default:
+                let mostRandomicValue = function() {
+                    return (Math.floor(Math.random() * 999) * 0.01);
+                };
+                return {latLng: [String(-15.795 + mostRandomicValue()), String(-47.757778 + mostRandomicValue())], name: clientCode, region: 'DF'};
+                break;
         }
     }
 }
