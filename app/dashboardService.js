@@ -14,17 +14,17 @@ class DashboardService {
     getStatisticsByRegion(data) {
         var getRegion = function (clientCode) {
             let calcRandom = function () {
-                return Math.floor(Math.random() * 99) * 0.01;
+                return (Math.floor(Math.random() * 155) * 0.01);
             };
             switch (parseInt(clientCode)) {
                 case(4771):
                     return {latLng: [String(-15.795 + calcRandom()), String(-47.757778 + calcRandom())], name: clientCode};
                     break;
                 case(2112):
-                    return {latLng: [String(-27.5717+ calcRandom()), String(-48.6256 + calcRandom())], name: clientCode};
+                    return {latLng: [String(-27.5717 - calcRandom()), String(-48.6256 - calcRandom())], name: clientCode};
                     break;
                 case(399):
-                    return {latLng: [String(-3.117034+calcRandom()), String(-60.025780 + calcRandom())], name: clientCode};
+                    return {latLng: [String(-3.117034+calcRandom()), String(-60.025780 - calcRandom())], name: clientCode};
                     break;
                 case(2220):
                     return {latLng: [String(-30.0277 +calcRandom()), String(-51.2287 + calcRandom())], name: clientCode};

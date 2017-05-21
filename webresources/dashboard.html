@@ -11,6 +11,7 @@
     <script src="api/maps/jquery.vmap.world2.js" charset="utf-8"></script>
     <script src="api/typed.min.js"></script>
     <script src="api/chart.bundle.js"></script>
+    <script src="api/moment.js"></script>
     <script src="js/dashboardEvents.js"></script>
 </head>
 <body>
@@ -62,11 +63,8 @@
 </html>
 <script>
 
-    var mapContainer = '#map';
     var map = "";
-
     $(function () {
-
         $.ajax({
             url: '/fetchDashboardData',
             success: function (data) {
@@ -98,7 +96,6 @@
             });
         }
 
-
         var color = Chart.helpers.color;
         var chartFrequency = new Chart($('#frequencyChart'), {
             type: 'line',
@@ -109,7 +106,7 @@
                     borderColor: '#4f8ae0',
                     fill: false,
                     data: cartesianPlanChart,
-                }]
+                }],
             },
             options: {
                 responsive: true,
@@ -192,7 +189,6 @@
         settingsChart.data.datasets[0].borderColor = borderColors;
 
         myChart = new Chart(ctx, settingsChart);
-
     }
 
     function getRandomColor(colorQuantity) {
@@ -249,7 +245,7 @@
                 initial: {
                     fill: 'yellow',
                     stroke: '#383f47',
-                    r: 3
+                    r: 4
                 }
             },
             backgroundColor: '#2a2a2a',
@@ -273,5 +269,31 @@
             }
         });
     }
+
+    var HashMap = function(){
+        this._dict = [];
+    };
+    HashMap.prototype._get = function(key){
+        for(var i=0, couplet; couplet = this._dict[i]; i++){
+            if(couplet[0] === key){
+                return couplet;
+            }
+        }
+    };
+    HashMap.prototype.put = function(key, value){
+        var couplet = this._get(key);
+        if(couplet){
+            couplet[1] = value;
+        }else{
+            this._dict.push([key, value]);
+        }
+        return this; // for chaining
+    };
+    HashMap.prototype.get = function(key){
+        var couplet = this._get(key);
+        if(couplet){
+            return couplet[1];
+        }
+    };
 
 </script>
