@@ -78,10 +78,10 @@
                 renderMap(data.statisticByRegion);
                 renderChartMostPopularFeatures(data.mostPopularFeatures);
                 renderChartFrequencyStatistics(data.frequencyReceived);
-                effects();
+                removeLoading();
             }
         });
-
+        effects();
         bindButtons();
     });
 
@@ -291,6 +291,9 @@
         map = new jvm.Map(settings);
     };
 
+    let removeLoading = function () {
+        $("#loadingDiv").animate({opacity: 0}, 800);
+    };
     function effects() {
         Typed.new('#contentSubtitle', {
             strings: ["WAKANDA ^200 DASHBOARD"],
@@ -301,7 +304,7 @@
             }
         });
 
-        $("#loadingDiv").animate({opacity: 0}, 800);
+        removeLoading();
     }
 
     var HashMap = function(){
