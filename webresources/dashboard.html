@@ -66,9 +66,16 @@
     var map = "";
 
     $(function () {
-        renderMap();
-        renderChartMostPopularFeatures();
-        renderChartFrequencyStatistics();
+
+        $.ajax({
+            url: '/fetchDashboardData',
+            success: function (data) {
+                renderMap(data.statisticByRegion);
+                renderChartMostPopularFeatures(data.mostPopularFeatures);
+                renderChartFrequencyStatistics(data.frequencyReceived);
+            }
+        });
+
         effects();
 
         bindButtons();
@@ -81,7 +88,17 @@
         $('#changePeriodPopularFeatures').bind('click', dashboardEvents.changePeriodPopularFeatures);
     }
 
-    function renderChartFrequencyStatistics() {
+    function renderChartFrequencyStatistics(data) {
+        var cartesianPlanChart = [];
+
+        for(var i = 0; i < data.length; i++) {
+            cartesianPlanChart.push({
+                x: data[i][0],
+                y: data[i][1].length
+            });
+        }
+
+
         var color = Chart.helpers.color;
         var chartFrequency = new Chart($('#frequencyChart'), {
             type: 'line',
@@ -91,22 +108,7 @@
                     backgroundColor: color('#4f8ae0').rgbString(),
                     borderColor: '#4f8ae0',
                     fill: false,
-                    data: [{
-                        x: '2017-05-15',
-                        y: 10
-                    }, {
-                        x: '2017-05-16',
-                        y: 15
-                    }, {
-                        x: '2017-05-17',
-                        y: 5
-                    }, {
-                        x: '2017-05-18',
-                        y: 20
-                    }, {
-                        x: '2017-05-19',
-                        y: 4
-                    }],
+                    data: cartesianPlanChart,
                 }]
             },
             options: {
@@ -137,25 +139,18 @@
         });
     }
 
-    function renderChartMostPopularFeatures() {
+    function renderChartMostPopularFeatures(data) {
         var chartID = 'mostfeaturesaccessedChart';
         var ctx = $("#" + chartID);
         Chart.defaults.global.defaultFontColor = '#dddddd';
         Chart.defaults.global.legend.display = false;
 
-        let generatedColors = getRandomColor(8);
-        var backgroundColors = hexToRgbA(generatedColors,  0.4);
-        var borderColors = hexToRgbA(generatedColors,  1);
-
-        var myChart = new Chart(ctx, {
+        let settingsChart = {
             type: 'horizontalBar',
             data: {
-                labels: ["DDO / Cadastro de Diário de Obra", "DDO / Relatório da Obra", "a", "b", "c", "d", "e", "f", "e"],
                 datasets: [{
                     label: 'Quantidade de estatisticas registradas',
                     data: [19, 17, 15, 14, 13, 12, 11, 10, 9],
-                    backgroundColor: backgroundColors,
-                    borderColor: borderColors,
                     borderWidth: 1
                 }]
             },
@@ -167,7 +162,7 @@
                 },
                 yAxes: [{
                     ticks: {
-                        beginAtZero:true
+                        beginAtZero: true
                     }
                 }],
                 xAxes: [{
@@ -175,10 +170,29 @@
                         maxTicksLimit: 10,
                     }
                 }],
-                scales: {
-                }
+                scales: {}
             }
-        });
+        };
+
+        var myChart = "";
+        var labels = new Array();
+        var chartData = new Array();
+        for(let i = 0; i < data.length; i++) {
+            labels.push(data[i][0]);
+            chartData.push(data[i][1].length);
+        }
+
+        var generatedColors = getRandomColor(8);
+        var backgroundColors = hexToRgbA(generatedColors,  0.4);
+        var borderColors = hexToRgbA(generatedColors,  1);
+
+        settingsChart.data.labels = labels;
+        settingsChart.data.datasets[0].data = chartData;
+        settingsChart.data.datasets[0].backgroundColor = backgroundColors;
+        settingsChart.data.datasets[0].borderColor = borderColors;
+
+        myChart = new Chart(ctx, settingsChart);
+
     }
 
     function getRandomColor(colorQuantity) {
@@ -215,7 +229,7 @@
         return result;
     }
 
-    function renderMap() {
+    function renderMap(dataMarkers) {
         var settings = {
             map: 'brazil_br',
             container: $('#map'),
@@ -223,8 +237,6 @@
             normalizeFunction: 'polynomial',
             hoverOpacity: 0.7,
             hoverColor: false,
-            zoomButtons: false,
-            zoomOnScroll: false,
             regionStyle: {
                 initial: {
                     fill: '#4f8ae0',
@@ -241,12 +253,7 @@
                 }
             },
             backgroundColor: '#2a2a2a',
-            markers: [
-                {latLng: [-15.795, -47.757778], name: "Distrito Federal"},
-                {latLng: [-27.5717, -48.6256], name: "Florianópolis"},
-                {latLng: [-3.117034, -60.025780], name: "Manaus"},
-                {latLng: [-30.0277, -51.2287], name: "Porto Alegre"}
-            ],
+            markers: dataMarkers,
             focusOn: {
                 scale: 1.60,
                 x: 0,

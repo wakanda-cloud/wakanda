@@ -24,6 +24,7 @@ var routes = require('./routes');
 app.get('/listStatistics', routes.listStatisticsGet);
 app.post('/listStatistics', routes.listStatisticsPost);
 app.post('/registerStatistic', routes.registerStatistic);
+app.get('/fetchDashboardData', routes.fetchDashboardData);
 
 var path = require('path');
 app.engine('html', ejs.renderFile);
