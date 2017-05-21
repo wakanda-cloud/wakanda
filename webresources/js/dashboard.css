@@ -19,6 +19,7 @@ body {
 .subtitle {
     margin-left: 20px;
     margin-top: 20px;
+    min-height: 40px;
     /*background-color: #000000 !important;*/
 }
 
@@ -137,4 +138,18 @@ body {
     font-size:11px;
     color:white;
     font-family: "Lucida Grande"
+}
+
+.jvectormap-tip {
+    color: white !important;
+}
+
+#loadingDiv {
+    position: absolute;
+    width: 300px;
+    height: 200px;
+    z-index: 15;
+    top: 30%;
+    left: 50%;
+    margin: -100px 0 0 -150px;
 }

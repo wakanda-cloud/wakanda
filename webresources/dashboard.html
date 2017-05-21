@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="js/dashboard.css" type="text/css" media="screen"/>
     <link rel="stylesheet" href="api/jquery-jvectormap-2.0.3.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="js/jarvis.css" type="text/css" media="screen"/>
     <script src="api/jquery-2.2.4.min.js"></script>
     <script src="api/jquery-jvectormap-2.0.3.js" charset="utf-8"></script>
     <script src="api/maps/jquery.vmap.brazil.js" charset="utf-8"></script>
@@ -15,6 +16,8 @@
     <script src="js/dashboardEvents.js"></script>
 </head>
 <body>
+    <div id="loadingDiv"></div>
+
     <div class="subtitle second-color">
         <span id="contentSubtitle"></span>
     </div>
@@ -65,16 +68,19 @@
 
     var map = "";
     $(function () {
+        $('body').css('background-color', 'black').css('z-index', '9999');
+
+        $("#loadingDiv").load("js/jarvis.html");
+
         $.ajax({
             url: '/fetchDashboardData',
             success: function (data) {
                 renderMap(data.statisticByRegion);
                 renderChartMostPopularFeatures(data.mostPopularFeatures);
                 renderChartFrequencyStatistics(data.frequencyReceived);
+                effects();
             }
         });
-
-        effects();
 
         bindButtons();
     });
@@ -89,12 +95,19 @@
     function renderChartFrequencyStatistics(data) {
         var cartesianPlanChart = [];
 
+        var chartDateFormat = 'YYYY-MM-DD';
         for(var i = 0; i < data.length; i++) {
+            var iterElement = data[i];
+            var firstElement = iterElement[0];
             cartesianPlanChart.push({
-                x: data[i][0],
-                y: data[i][1].length
+                x: moment(firstElement.capturedDate, "DD/MM/YYYY - HH:mm:ss").format(chartDateFormat),
+                y: iterElement.length
             });
         }
+
+        cartesianPlanChart.sort(function(element, otherElement) {
+            return moment(element.x, chartDateFormat).isAfter(moment(otherElement.x, chartDateFormat));
+        });
 
         var color = Chart.helpers.color;
         var chartFrequency = new Chart($('#frequencyChart'), {
@@ -171,12 +184,13 @@
             }
         };
 
-        var myChart = "";
-        var labels = new Array();
-        var chartData = new Array();
+        var labels = [];
+        var chartData = [];
         for(let i = 0; i < data.length; i++) {
-            labels.push(data[i][0]);
-            chartData.push(data[i][1].length);
+            var element = data[i];
+            var firstIteratedElement = element[0];
+            labels.push(firstIteratedElement.module + " / " + firstIteratedElement.title + " / " + firstIteratedElement.linkClicked);
+            chartData.push(element.length);
         }
 
         var generatedColors = getRandomColor(8);
@@ -188,7 +202,7 @@
         settingsChart.data.datasets[0].backgroundColor = backgroundColors;
         settingsChart.data.datasets[0].borderColor = borderColors;
 
-        myChart = new Chart(ctx, settingsChart);
+        new Chart(ctx, settingsChart);
     }
 
     function getRandomColor(colorQuantity) {
@@ -226,6 +240,17 @@
     }
 
     function renderMap(dataMarkers) {
+        var regionsWithoutDuplicates = [];
+        var regionsStyle = {}
+
+        dataMarkers.forEach(function(element) {
+            if(regionsWithoutDuplicates.indexOf(element.region) === -1) {
+                regionsWithoutDuplicates.push(element.region);
+
+                regionsStyle[element.region.toLowerCase()] = 'rgba(79, 138, 224, 1)';
+            }
+        });
+
         var settings = {
             map: 'brazil_br',
             container: $('#map'),
@@ -233,11 +258,12 @@
             normalizeFunction: 'polynomial',
             hoverOpacity: 0.7,
             hoverColor: false,
+            zoomOnScroll: false,
             regionStyle: {
                 initial: {
-                    fill: '#4f8ae0',
+                    fill: '#7f7f7f',
                     "stroke": 'black',
-                    "stroke-width": '0.5px',
+                    "stroke-width": '0.1px',
                     "stroke-opacity": 1
                 }
             },
@@ -247,6 +273,12 @@
                     stroke: '#383f47',
                     r: 4
                 }
+            },
+            series: {
+                regions: [{
+                    values: regionsStyle,
+                    attribute: 'fill'
+                }]
             },
             backgroundColor: '#2a2a2a',
             markers: dataMarkers,
@@ -268,6 +300,8 @@
                 $('.typed-cursor').fadeOut(2600, "linear");
             }
         });
+
+        $("#loadingDiv").animate({opacity: 0}, 800);
     }
 
     var HashMap = function(){

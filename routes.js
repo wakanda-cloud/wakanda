@@ -1,12 +1,13 @@
 'use strict';
 
 var statisticService = require('./app/statisticService');
-var DashboardService = require('./app/dashboardService');
+var DashboardService = require('./app/dashboard/DashboardService');
 var StatisticData = require('./app/statisticData');
 var FetchStatisticService = require('./app/fetchStatisticService');
 var routes = function(){};
 var sleep = require('sleep');
 var crypto = require('crypto');
+
 var securityService = require('./app/securityService');
 
 routes.listStatistics = function (dataReceived, res) {
@@ -39,12 +40,8 @@ routes.fetchDashboardData = function(req, res) {
     let dashboardService = new DashboardService();
 
     var fetchStatisticService = new FetchStatisticService(function(clientData) {
-        var pageData = {
-            mostPopularFeatures: dashboardService.getMostPopularFeatures(8, clientData),
-            frequencyReceived : dashboardService.getReceivedFrequencyThisWeek(clientData),
-            statisticByRegion : dashboardService.getStatisticsByRegion(clientData)
-        };
-        res.status(200).send(pageData);
+        let alldata = dashboardService.process(clientData);
+        res.status(200).send(alldata);
     });
 
     fetchStatisticService.fetchAll();
