@@ -5,7 +5,6 @@ var DashboardService = require('./app/dashboard/DashboardService');
 var StatisticData = require('./app/statisticData');
 var FetchStatisticService = require('./app/fetchStatisticService');
 var routes = function(){};
-var sleep = require('sleep');
 var crypto = require('crypto');
 
 var securityService = require('./app/securityService');

@@ -16,12 +16,11 @@
     <script src="js/dashboardEvents.js"></script>
 </head>
 <body>
-    <div id="loadingDiv"></div>
-
-    <div class="subtitle second-color">
-        <span id="contentSubtitle"></span>
-    </div>
     <div id="container">
+        <div id="loadingDiv"></div>
+        <div class="subtitle second-color">
+            <span id="contentSubtitle"></span>
+        </div>
         <div id="mostfeaturesaccessed" class="dashboardWidget leftWidget">
             <div class="dashtitle" style="color:white">
                 Most popular features <span style="font-size:11px">(Last 30 days)</span>
@@ -45,11 +44,10 @@
                 <canvas id="frequencyChart" width="400" height="150"></canvas>
             </div>
         </div>
-    </div>
-    <div id="footer">
-        <p align="right">
+        <div id="footer">
+            <p align="right">
             <div class="itemFooter" style="float:left !important">
-               <img src="js/light-connected.png"/> Connected
+                <img src="js/light-connected.png"/> Connected
             </div>
             <div class="itemFooter">
                 Copyright © 2017 Lucas Ventura
@@ -60,8 +58,10 @@
             <div class="itemFooter">
                 Terms of use
             </div>
-        </p>
+            </p>
+        </div>
     </div>
+
 </body>
 </html>
 <script>

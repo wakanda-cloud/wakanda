@@ -1,6 +1,5 @@
 "use strict";
 var redisConn = require('./redisconnection');
-var sleep = require('sleep');
 var FetchStatisticService = require('../app/fetchStatisticService')
 var ClientStatisticData = require('../app/clientData');
 
