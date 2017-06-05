@@ -157,7 +157,8 @@
     function renderChartMostPopularFeatures(data) {
         var canvas = document.getElementById('mostfeaturesaccessedChart');
         var context = canvas.getContext('2d');
-        context.clear();
+        context.clearRect(0, 0, context.width,context.height);
+        context.beginPath();
 
         var chartID = 'mostfeaturesaccessedChart';
         var ctx = $("#" + chartID);
