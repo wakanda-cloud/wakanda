@@ -53,6 +53,7 @@ routes.reloadMostPopularFeatures = function(req, res) {
         let mostPopFeatData = dashboardService.reloadMostPopularFeatures(clientData, req.query.quantity);
         res.status(200).send(mostPopFeatData);
     });
+
     fetchStatisticService.fetchAll();
 };
 
