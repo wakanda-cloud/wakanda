@@ -15,7 +15,7 @@ class DashboardService {
     }
 
     reloadMostPopularFeatures(quantity, data) {
-        new MostPopularFeaturesWidget().process(quantity, data);
+        return new MostPopularFeaturesWidget().process(quantity, data);
     }
 }
 
