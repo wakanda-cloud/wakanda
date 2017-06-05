@@ -31,7 +31,7 @@ class FrequencyStatisticRegisterWidget {
         }
         let values = map.values();
         this.orderMapByDate(values);
-        return values;
+        return values.slice(0, 7);
     }
 
     orderMapByDate(array) {
