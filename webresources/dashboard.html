@@ -24,7 +24,7 @@
         <div id="mostfeaturesaccessed" class="dashboardWidget leftWidget">
             <div class="dashtitle" style="color:white">
                 Most popular features <span style="font-size:11px">(Last 30 days)</span>
-                <a id="changePeriodPopularFeatures" class="second-color buttonLink">Change</a></td>
+                <a id="showMorePopularFeatures" class="second-color buttonLink">Show more</a></td>
             </div>
             <div style="padding-left:15px;margin-right:10px;margin-top:20px">
                 <canvas id="mostfeaturesaccessedChart" width="400" height="250"></canvas>
@@ -89,7 +89,12 @@
         var dashboardEvents = new DashboardEvents();
         $('#nextWeek').bind('click', dashboardEvents.frequencyNextWeek);
         $('#previousWeek').bind('click', dashboardEvents.frequencyPreviousWeek);
-        $('#changePeriodPopularFeatures').bind('click', dashboardEvents.changePeriodPopularFeatures);
+
+        $('#showMorePopularFeatures').bind('click', function(e) {
+            dashboardEvents.showMoreMostPopularFeatures(e, function(data) {
+                renderChartMostPopularFeatures(data);
+            })
+        });
     }
 
     function renderChartFrequencyStatistics(data) {

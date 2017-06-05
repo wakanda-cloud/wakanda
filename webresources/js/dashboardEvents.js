@@ -8,7 +8,11 @@ class DashboardEvents {
         alert('previous');
     }
 
-    changePeriodPopularFeatures(event) {
-        alert('change period');
+    showMoreMostPopularFeatures(event, success) {
+        var number = prompt("Number of most popular features expected");
+        $.ajax({
+            url: '/reloadMostPopularFeatures?quantity=' + number,
+            success: success
+        });
     }
 }

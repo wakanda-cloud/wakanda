@@ -25,6 +25,7 @@ app.get('/listStatistics', routes.listStatisticsGet);
 app.post('/listStatistics', routes.listStatisticsPost);
 app.post('/registerStatistic', routes.registerStatistic);
 app.get('/fetchDashboardData', routes.fetchDashboardData);
+app.get('/reloadMostPopularFeatures', routes.reloadMostPopularFeatures);
 
 var path = require('path');
 app.engine('html', ejs.renderFile);

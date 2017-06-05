@@ -46,6 +46,16 @@ routes.fetchDashboardData = function(req, res) {
     fetchStatisticService.fetchAll();
 };
 
+routes.reloadMostPopularFeatures = function(req, res) {
+    let dashboardService = new DashboardService();
+
+    var fetchStatisticService = new FetchStatisticService(function(clientData) {
+        let mostPopFeatData = dashboardService.reloadMostPopularFeatures(clientData, req.query.quantity);
+        res.status(200).send(mostPopFeatData);
+    });
+    fetchStatisticService.fetchAll();
+};
+
 function getJsonData(data, res) {
     if(process.env.SECURITY_TOKEN) {
         var jsonData = securityService.decryptJSON(data);

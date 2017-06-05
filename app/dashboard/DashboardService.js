@@ -13,6 +13,10 @@ class DashboardService {
             statisticByRegion : new StatisticsByRegionWidget().process(data)
         }
     }
+
+    reloadMostPopularFeatures(quantity, data) {
+        new MostPopularFeaturesWidget().process(quantity, data);
+    }
 }
 
 module.exports = DashboardService;
