@@ -36,6 +36,9 @@ app.use('/api',express.static(path.join(__dirname, 'webresources/api')));
 app.use('/fonts',express.static(path.join(__dirname, 'webresources/fonts')));
 app.use('/js',express.static(path.join(__dirname, 'webresources/js')));
 
+app.get('/', function(req, res){
+    res.render('dashboard.html')
+});
 
 app.get('/dashboard', function(req, res){
     res.render('dashboard.html')
