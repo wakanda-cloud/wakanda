@@ -2,5 +2,6 @@
   "name": "Wakanda",
   "description": "A Service to register statistic and see on dahsboards",
   "repository": "https://github.com/lucasventurasc/wakanda",
-  "keywords": ["node", "express", "static"]
+  "keywords": ["node", "express", "static"],
+  "addons" : ["heroku-redis"]
 }
