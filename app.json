@@ -4,5 +4,5 @@
   "repository": "https://github.com/lucasventurasc/wakanda",
   "logo": "https://teonanacatl.org/styles/uix/nflj/ams/category_images/w.png",
   "keywords": ["node", "express", "static"],
-  "addons" : "heroku-redis"
+  "addons" : ["heroku-redis"]
 }
