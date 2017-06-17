@@ -14,8 +14,9 @@ class DashboardService {
             statisticByRegion : new StatisticsByRegionWidget().process(data),
             uniqueClients : new StatisticsByClientWidget().process(data),
             topMostActiveClients : function() {
+
                 data.sort(function(a, b) {
-                    return b.length - a.length;
+                    return b.statisticData.length - a.statisticData.length;
                 });
 
                 return data.slice(0,5);
