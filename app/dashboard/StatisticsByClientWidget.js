@@ -5,7 +5,7 @@ var HashMap = require('hashmap');
 class StatisticsByClientWidget {
 
     process(data) {
-        return this.getStatisticsByRegion(data);
+        return this.getUniqueClientsData(data);
     }
 
     getUniqueClientsData(data) {
