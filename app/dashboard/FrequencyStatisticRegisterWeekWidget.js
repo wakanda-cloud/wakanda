@@ -14,6 +14,8 @@ class FrequencyStatisticRegisterWidget {
 
         for (let clientIndex = 0; clientIndex < data.length; clientIndex++) {
             let clientData = data[clientIndex];
+            this.orderDescByDataToStartWithLastDays(clientData);
+
             for (let statisticIndex = 0; statisticIndex < clientData.statisticData.length; statisticIndex++) {
                 var capturedDate = moment(clientData.statisticData[statisticIndex].capturedDate, 'DD/MM/YYYY');
 
@@ -34,11 +36,19 @@ class FrequencyStatisticRegisterWidget {
         return values.slice(0, 7);
     }
 
+    orderDescByDataToStartWithLastDays(clientData) {
+        clientData.statisticData.sort(function (a, b) {
+            let dateA = moment(a.capturedDate, 'DD-MM-YYYY');
+            let dateB = moment(b.capturedDate, 'DD-MM-YYYY');
+            return dateB._d.getTime() - dateA._d.getTime();
+        });
+    }
+
     orderMapByDate(array) {
         array.sort(function (a, b) {
-            var dateA = moment(a[0], 'YYYY-MM-DD');
-            var dateB = moment(b[0], 'YYYY-MM-DD');
-            return dateB._d.getTime() - dateA._d.getTime();
+            let dateA = moment(a[0], 'YYYY-MM-DD');
+            let dateB = moment(b[0], 'YYYY-MM-DD');
+            return dateA._d.getTime() - dateB._d.getTime();
         });
     }
 }
