@@ -1,6 +1,7 @@
 'use strict';
 
 var HashMap = require('hashmap');
+var moment = require('moment');
 
 class StatisticsByClientWidget {
 
