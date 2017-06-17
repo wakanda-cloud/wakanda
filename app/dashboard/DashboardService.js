@@ -3,6 +3,7 @@
 var FrequencyStatisticRegisterWeekWidget = require('./FrequencyStatisticRegisterWeekWidget');
 var StatisticsByRegionWidget = require('./StatisticsByRegionWidget');
 var MostPopularFeaturesWidget = require('./MostPopularFeaturesWidget');
+var StatisticByClientWdiget = require('./StatisticsByClientWidget')
 
 class DashboardService {
 
@@ -10,7 +11,8 @@ class DashboardService {
         return {
             mostPopularFeatures: new MostPopularFeaturesWidget().process(8, data),
             frequencyReceived : new FrequencyStatisticRegisterWeekWidget().process(data),
-            statisticByRegion : new StatisticsByRegionWidget().process(data)
+            statisticByRegion : new StatisticsByRegionWidget().process(data),
+            uniqueClients : new StatisticsByRegionWidget().process(data)
         }
     }
 

@@ -34,14 +34,6 @@ class FrequencyStatisticRegisterWidget {
         return values.slice(0, 7);
     }
 
-    orderDescByDataToStartWithLastDays(clientData) {
-        clientData.statisticData.sort(function (a, b) {
-            let dateA = moment(a.capturedDate, 'DD-MM-YYYY');
-            let dateB = moment(b.capturedDate, 'DD-MM-YYYY');
-            return dateB._d.getTime() - dateA._d.getTime();
-        });
-    }
-
     orderMapByDate(array) {
         array.sort(function (a, b) {
             let dateA = moment(a[0], 'YYYY-MM-DD');
