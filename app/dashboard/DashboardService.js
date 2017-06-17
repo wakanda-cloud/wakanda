@@ -12,7 +12,14 @@ class DashboardService {
             mostPopularFeatures: new MostPopularFeaturesWidget().process(8, data),
             frequencyReceived : new FrequencyStatisticRegisterWeekWidget().process(data),
             statisticByRegion : new StatisticsByRegionWidget().process(data),
-            uniqueClients : new StatisticsByClientWidget().process(data)
+            uniqueClients : new StatisticsByClientWidget().process(data),
+            topMostActiveClients : function() {
+                data.sort(function(a, b) {
+                    return b.length - a.length;
+                });
+
+                return data.slice(0,5);
+            }
         }
     }
 
