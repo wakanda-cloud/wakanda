@@ -17,14 +17,14 @@ class StatisticsByClientWidget {
             let statisticData = clientData.statisticData;
             this.orderDescByDataToStartWithLastDays(statisticData);
             for (let statisticIndex = 0; statisticIndex < statisticData.length; statisticIndex++) {
-                if(moment().diff(statisticData[statisticIndex], 'days') <= 7) {
+                if(moment().diff(moment(statisticData[statisticIndex].capturedDate).format("DD/MM/YYYY"), 'days') <= 7) {
                     newClientsInThisWeek.set(clientData.client, "");
                 }
             }
         }
 
         return {
-            newClients : newClientsInThisWeek,
+            newClients : newClientsInThisWeek.count(),
             total : data.length
         };
     }
