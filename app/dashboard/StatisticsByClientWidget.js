@@ -17,7 +17,7 @@ class StatisticsByClientWidget {
             let statisticData = clientData.statisticData;
             this.orderDescByDataToStartWithLastDays(statisticData);
             for (let statisticIndex = 0; statisticIndex < statisticData.length; statisticIndex++) {
-                if(moment().diff(moment(statisticData[statisticIndex].capturedDate).format("DD/MM/YYYY"), 'days') <= 7) {
+                if(moment().diff(moment(statisticData[statisticIndex].capturedDate).format("DD/MM/YYYY"), 'days') <= 30) {
                     newClientsInThisWeek.set(clientData.client, "");
                 }
             }
