@@ -20,7 +20,7 @@ class StatisticsByClientWidget {
                 var capturedDate = moment(clientData.statisticData[statisticIndex].capturedDate, 'DD/MM/YYYY');
                 let statisticDate = moment(capturedDate);
 
-                if(moment().diff(statisticDate, 'days') <= 30) {
+                if(moment().diff(statisticDate, 'days') <= 7) {
                     newClientsInThisWeek.set(clientData.client, "");
                 }
             }
