@@ -16,13 +16,20 @@ class StatisticsByClientWidget {
             let clientData = data[clientIndex];
             let statisticData = clientData.statisticData;
             this.orderDescByDataToStartWithLastDays(statisticData);
+
+            let clientHasStatisticAfter7Days = false;
             for (let statisticIndex = 0; statisticIndex < statisticData.length; statisticIndex++) {
                 var capturedDate = moment(clientData.statisticData[statisticIndex].capturedDate, 'DD/MM/YYYY');
                 let statisticDate = moment(capturedDate);
 
-                if(moment().diff(statisticDate, 'days') <= 7) {
-                    newClientsInThisWeek.set(clientData.client, "");
+                if(moment().diff(statisticDate, 'days') >= 8) {
+                    clientHasStatisticAfter7Days = true;
+                    break;
                 }
+            }
+
+            if(!clientHasStatisticAfter7Days) {
+                newClientsInThisWeek.set(clientData.client, "");
             }
         }
 
