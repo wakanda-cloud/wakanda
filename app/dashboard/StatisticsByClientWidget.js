@@ -28,8 +28,8 @@ class StatisticsByClientWidget {
         };
     }
 
-    orderDescByDataToStartWithLastDays(clientData) {
-        clientData.statisticData.sort(function (a, b) {
+    orderDescByDataToStartWithLastDays(array) {
+        array.sort(function (a, b) {
             let dateA = moment(a.capturedDate, 'DD-MM-YYYY');
             let dateB = moment(b.capturedDate, 'DD-MM-YYYY');
             return dateB._d.getTime() - dateA._d.getTime();
