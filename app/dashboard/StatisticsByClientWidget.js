@@ -22,7 +22,7 @@ class StatisticsByClientWidget {
                 var capturedDate = moment(clientData.statisticData[statisticIndex].capturedDate, 'DD/MM/YYYY');
                 let statisticDate = moment(capturedDate);
 
-                if(moment().diff(statisticDate, 'days') >= 8) {
+                if(moment().diff(statisticDate, 'days') >= 1) {
                     clientHasStatisticAfter7Days = true;
                     break;
                 }
