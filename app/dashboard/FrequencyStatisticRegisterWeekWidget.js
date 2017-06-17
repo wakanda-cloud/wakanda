@@ -38,7 +38,7 @@ class FrequencyStatisticRegisterWidget {
         array.sort(function (a, b) {
             var dateA = moment(a[0], 'YYYY-MM-DD');
             var dateB = moment(b[0], 'YYYY-MM-DD');
-            return dateA._d.getTime() - dateB._d.getTime();
+            return dateB._d.getTime() - dateA._d.getTime();
         });
     }
 }
