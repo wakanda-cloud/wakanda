@@ -17,18 +17,18 @@ class StatisticsByClientWidget {
             let statisticData = clientData.statisticData;
             this.orderDescByDataToStartWithLastDays(statisticData);
 
-            let clientHasStatisticAfter7Days = false;
+            let clientHasStatisticAfter5Days = false;
             for (let statisticIndex = 0; statisticIndex < statisticData.length; statisticIndex++) {
                 var capturedDate = moment(clientData.statisticData[statisticIndex].capturedDate, 'DD/MM/YYYY');
                 let statisticDate = moment(capturedDate);
 
-                if(moment().diff(statisticDate, 'days') >= 1) {
-                    clientHasStatisticAfter7Days = true;
+                if(moment().diff(statisticDate, 'days') >= 5) {
+                    clientHasStatisticAfter5Days = true;
                     break;
                 }
             }
 
-            if(!clientHasStatisticAfter7Days) {
+            if(!clientHasStatisticAfter5Days) {
                 newClientsInThisWeek.set(clientData.client, "");
             }
         }
