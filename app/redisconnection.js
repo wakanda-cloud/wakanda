@@ -6,9 +6,7 @@ if (process.env.REDISCLOUD_URL) {
 } else if (process.env.REDIS_URL) {
     redisClient = redis.createClient(process.env.REDIS_URL, {no_ready_check: true});
 } else {
-    var config = require('../config/config');
-    redisClient = redis.createClient(config.redisConf);
-    redisClient.auth(config.redisConf.password);
+    redisClient = redis.createClient();
 }
 
 redisClient.on('connect', function() {

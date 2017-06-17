@@ -3,7 +3,7 @@
 var FrequencyStatisticRegisterWeekWidget = require('./FrequencyStatisticRegisterWeekWidget');
 var StatisticsByRegionWidget = require('./StatisticsByRegionWidget');
 var MostPopularFeaturesWidget = require('./MostPopularFeaturesWidget');
-var StatisticsByClientWidget = require('./StatisticsByClientWidget')
+var StatisticsByClientWidget = require('./StatisticsByClientWidget');
 
 class DashboardService {
 
@@ -20,7 +20,7 @@ class DashboardService {
                 });
 
                 return data.slice(0,5);
-            }
+            }()
         }
     }
 
