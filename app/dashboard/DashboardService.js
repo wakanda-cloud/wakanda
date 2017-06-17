@@ -12,7 +12,7 @@ class DashboardService {
             mostPopularFeatures: new MostPopularFeaturesWidget().process(8, data),
             frequencyReceived : new FrequencyStatisticRegisterWeekWidget().process(data),
             statisticByRegion : new StatisticsByRegionWidget().process(data),
-            uniqueClients : new StatisticsByRegionWidget().process(data)
+            uniqueClients : new StatisticByClientWdiget().process(data)
         }
     }
 
