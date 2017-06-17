@@ -14,15 +14,13 @@ class FrequencyStatisticRegisterWidget {
 
         for (let clientIndex = 0; clientIndex < data.length; clientIndex++) {
             let clientData = data[clientIndex];
-            this.orderDescByDataToStartWithLastDays(clientData);
-
             for (let statisticIndex = 0; statisticIndex < clientData.statisticData.length; statisticIndex++) {
                 var capturedDate = moment(clientData.statisticData[statisticIndex].capturedDate, 'DD/MM/YYYY');
 
-                let weekOfStatistic = moment(capturedDate).isoWeek();
-                let currentWeek = moment(new Date()).isoWeek();
+                let statisticDate = moment(capturedDate);
+                let currentDate = moment(new Date());
 
-                if (weekOfStatistic[1] === currentWeek[1]) {
+                if(currentDate.diff(statisticDate, 'days') <= 7) {
                     let keyOfStatistic = moment(capturedDate).format('YYYY-MM-DD');
                     if (map.get(keyOfStatistic) === undefined) {
                         map.set(keyOfStatistic, new Array());
