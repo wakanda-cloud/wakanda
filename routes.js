@@ -58,14 +58,11 @@ routes.reloadMostPopularFeatures = function(req, res) {
 };
 
 function getJsonData(data, res) {
-    if(process.env.SECURITY_TOKEN) {
-        var jsonData = securityService.decryptJSON(data);
-        if(jsonData.token && jsonData.token !== process.env.SECURITY_TOKEN) {
-            res.status(401).send("Unauthorized");
-        }
-        return jsonData;
+    var jsonData = securityService.decryptJSON(data);
+    if(jsonData.token && jsonData.token !== process.env.SECURITY_TOKEN) {
+        res.status(401).send("Unauthorized");
     }
-    return JSON.parse(data);
+    return jsonData;
 }
 
 module.exports = routes;
