@@ -10,6 +10,7 @@ class StatisticData {
         this.title = data["title"];
         this.capturedDate = moment().format("DD/MM/YYYY - HH:mm:ss");
         this.linkClicked = data["linkClicked"];
+        this.location = data["location"]
     }
 
     set client(client) {
@@ -54,6 +55,14 @@ class StatisticData {
 
     set linkClicked(linkClicked) {
         this._linkClicked = linkClicked;
+    }
+
+    set location(location) {
+        this._location = location;
+    }
+
+    get location() {
+        return this._location;
     }
 
     toJSON() {
