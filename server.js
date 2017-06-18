@@ -8,7 +8,7 @@ app.set('port', (process.env.PORT || 7000));
 app.listen(app.get('port'), function () {
 
     if(!process.env.DECRYPT_KEY) {
-        process.env.DECRYPT_KEY = "12345678";
+        process.env.DECRYPT_KEY = "qwertyui";
         throw "Decrypt key not configured";
     }
     var host = process.env.host;

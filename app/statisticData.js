@@ -10,7 +10,7 @@ class StatisticData {
         this.title = data["title"];
         this.capturedDate = moment().format("DD/MM/YYYY - HH:mm:ss");
         this.linkClicked = data["linkClicked"];
-        this.location = data["location"]
+        this.location = data["location"];
     }
 
     set client(client) {
@@ -72,7 +72,8 @@ class StatisticData {
             submodule: this.submodule,
             title: this.title,
             capturedDate: this.capturedDate,
-            linkClicked: this.linkClicked
+            linkClicked: this.linkClicked,
+            location: this.location
         }
     }
 }
