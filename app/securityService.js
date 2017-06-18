@@ -10,7 +10,7 @@ securityService.decryptJSON = function(text) {
         mode: CryptoJS.mode.CTR
     });
 
-    return JSON.parse(bytes.toString());
+    return JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
 };
 
 module.exports = securityService;
