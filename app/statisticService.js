@@ -1,7 +1,7 @@
 "use strict";
-var redisConn = require('./redisconnection');
 var FetchStatisticService = require('../app/fetchStatisticService')
 var ClientStatisticData = require('../app/clientData');
+var MongoClient = require('../app/MongoConnection');
 
 class StatisticService {
 
@@ -25,22 +25,26 @@ class StatisticService {
     }
 
     _registerOnDatabase(statisticData) {
-        redisConn.get(statisticData.client, function (err, reply) {
-            var clientStatisticDataToPersist = null;
+        MongoClient.connect('mongodb://localhost/statistics', function(err, db) {
+            db.collection("clients").findOne({client : statisticData.client}, function(err, reply) {
+                var clientStatisticDataToPersist = null;
 
-            if (reply !== null) {
-                if (parseJSON(reply) === null) return;
-                clientStatisticDataToPersist = new ClientStatisticData(parseJSON(reply));
-                clientStatisticDataToPersist.addStatisticData(statisticData);
-            } else {
-                clientStatisticDataToPersist = new ClientStatisticData();
-                clientStatisticDataToPersist.client = statisticData.client;
-                clientStatisticDataToPersist.addStatisticData(statisticData);
-            }
+                if (reply !== null) {
+                    if (parseJSON(reply) === null) return;
+                    clientStatisticDataToPersist = new ClientStatisticData(parseJSON(reply));
+                    clientStatisticDataToPersist.addStatisticData(statisticData);
+                } else {
+                    clientStatisticDataToPersist = new ClientStatisticData();
+                    clientStatisticDataToPersist.client = statisticData.client;
+                    clientStatisticDataToPersist.addStatisticData(statisticData);
+                }
 
-            var json = JSON.stringify(clientStatisticDataToPersist.toJSON());
-            console.log("registered new statistic: " + statisticData.client);
-            redisConn.set(statisticData.client, json);
+                db.collection("clients").insertOne(clientStatisticDataToPersist, function(err) {
+                    if (err) throw err;
+                    console.log("#mongo - registered new statistic: " + statisticData.client);
+                    db.close();
+                });
+            });
         });
     }
 }

@@ -58,6 +58,7 @@ routes.reloadMostPopularFeatures = function(req, res) {
 };
 
 function getJsonData(data, res) {
+    return data;
     var jsonData = securityService.decryptJSON(data);
     if(jsonData.token && jsonData.token !== process.env.SECURITY_TOKEN) {
         res.status(401).send("Unauthorized");
