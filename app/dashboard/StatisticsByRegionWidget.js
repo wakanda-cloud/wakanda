@@ -28,7 +28,8 @@ class StatisticsByRegionWidget {
         let statisticLocation = firstStatisticData.location.split(";");
         clientCodes.push({
             latLng: [statisticLocation[0], statisticLocation[1]],
-            name: clientData.client
+            name: clientData.client,
+            region: ""
         });
     }
 

@@ -1,0 +1,26 @@
+<html>
+<head>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/lucasventurasc/wakanda-webapp@v1.1/assets/js/dashboard/wakanda.js"></script>
+</head>
+<body>
+<button class="wakanda" alt="Save Statistic">
+    Send statistic to your Wakanda Cloud
+</button>
+</body>
+</html>
+<script>
+    $(document).ready(function() {
+        var yourEncryptKey = "qwertyui";
+        var yourApiKey = "f26e14d40acac97db442714eac6ff187";
+        var w = new Wakanda(yourEncryptKey, yourApiKey, {
+            client: "Google",
+            module: "Pesquisa",
+            submodule: "Estou com sorte",
+            title:  "Procurando Nemo",
+            geoLocation: true
+        });
+
+        w.server = "http://localhost:7000/registerStatistic";
+    });
+</script>

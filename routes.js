@@ -1,17 +1,15 @@
 'use strict';
 
-var statisticService = require('./app/statisticService');
-var DashboardService = require('./app/dashboard/DashboardService');
-var StatisticData = require('./app/statisticData');
-var FetchStatisticService = require('./app/fetchStatisticService');
-var routes = function(){};
-var crypto = require('crypto');
+var StatisticData = require("./app/entity/Statistic");
+var DashboardService = require("./app/dashboard/DashboardService");
+var StatisticService = require("./app/StatisticService");
+var SecurityService = require("./app/SecurityService");
+var StatisticDAO = require("./app/mongo/StatisticDAO");
 
-var securityService = require('./app/securityService');
-
+let routes = function(){};
 routes.listStatistics = function (dataReceived, res) {
-    var filter = getJsonData(dataReceived, res);
-    statisticService.list(filter.client, function (data) {
+    let filter = getJsonData(dataReceived, res);
+    new StatisticService().list(filter.client, function (data) {
         res.status(200).send(data);
     });
 };
@@ -21,45 +19,37 @@ routes.listStatisticsPost = function(req, res) {
 };
 
 routes.listStatisticsGet = function(req, res) {
-    var payload = req.param("payload");
+    let payload = req.param("payload");
     if(payload.indexOf(" ") > -1) {
-        res.status(200).send("You must replace all '+' characters to %2B, if the error persists please check on web: 'RFC 2396' ");
+        res.status(200).send("You must replace all '+' characters to %2B, if the error persists please check on web: 'RFC 2396'");
     } else {
         routes.listStatistics(payload, res);
     }
 };
 
 routes.registerStatistic = function(req, res) {
-    var jsonData = getJsonData(req.body, res);
-    statisticService.register(new StatisticData(jsonData));
-    res.status(200).send("done");
+    let jsonData = getJsonData(req.body.data, res);
+
+    new StatisticService().register(new StatisticData(jsonData));
+
+    res.status(202).send("done");
 };
 
 routes.fetchDashboardData = function(req, res) {
-    let dashboardService = new DashboardService();
-
-    var fetchStatisticService = new FetchStatisticService(function(clientData) {
-        let alldata = dashboardService.process(clientData);
-        res.status(200).send(alldata);
+    new StatisticDAO().findAll(function(clientData) {
+        res.status(200).send(new DashboardService().process(clientData));
     });
-
-    fetchStatisticService.fetchAll();
 };
 
 routes.reloadMostPopularFeatures = function(req, res) {
-    let dashboardService = new DashboardService();
-
-    var fetchStatisticService = new FetchStatisticService(function(clientData) {
-        let mostPopFeatData = dashboardService.reloadMostPopularFeatures(clientData, req.query.quantity);
+    new StatisticDAO().findAll(function(clientData) {
+        let mostPopFeatData = new DashboardService().reloadMostPopularFeatures(clientData, req.query.quantity);
         res.status(200).send(mostPopFeatData);
     });
-
-    fetchStatisticService.fetchAll();
 };
 
 function getJsonData(data, res) {
-    return data;
-    var jsonData = securityService.decryptJSON(data);
+    let jsonData = new SecurityService().decryptJSON(data);
     if(jsonData.token && jsonData.token !== process.env.SECURITY_TOKEN) {
         res.status(401).send("Unauthorized");
     }

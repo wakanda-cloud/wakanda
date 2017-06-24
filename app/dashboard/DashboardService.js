@@ -4,22 +4,23 @@ var FrequencyStatisticRegisterWeekWidget = require('./FrequencyStatisticRegister
 var StatisticsByRegionWidget = require('./StatisticsByRegionWidget');
 var MostPopularFeaturesWidget = require('./MostPopularFeaturesWidget');
 var StatisticsByClientWidget = require('./StatisticsByClientWidget');
+var Client = require('../entity/Customer');
 
 class DashboardService {
 
-    process(data) {
+    process(customerStatistics) {
         return {
-            mostPopularFeatures: new MostPopularFeaturesWidget().process(8, data),
-            frequencyReceived : new FrequencyStatisticRegisterWeekWidget().process(data),
-            statisticByRegion : new StatisticsByRegionWidget().process(data),
-            uniqueClients : new StatisticsByClientWidget().process(data),
+            mostPopularFeatures: new MostPopularFeaturesWidget().process(8, customerStatistics),
+            frequencyReceived : new FrequencyStatisticRegisterWeekWidget().process(customerStatistics),
+            statisticByRegion : new StatisticsByRegionWidget().process(customerStatistics),
+            uniqueClients : new StatisticsByClientWidget().process(customerStatistics),
             topMostActiveClients : function() {
 
-                data.sort(function(a, b) {
+                customerStatistics.sort(function(a, b) {
                     return b.statisticData.length - a.statisticData.length;
                 });
 
-                return data.slice(0,5);
+                return customerStatistics.slice(0,5);
             }()
         }
     }
