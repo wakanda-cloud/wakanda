@@ -59,7 +59,8 @@ class StatisticDAO {
         let statistic = new Statistic(statisticData) ;
         let clientStatisticDataToPersist = new Customer(existingCustomerData);
         clientStatisticDataToPersist.addStatisticData(statistic.toJSON());
-        db.collection("customer").save(clientStatisticDataToPersist.toJSON(), function (err) {
+
+        db.collection("customer").update({_id: ObjectId(existingCustomerData._id)}, clientStatisticDataToPersist.toJSON(), { multi: false }, function (err) {
             that.finishMongoConnection(err, statistic, db);
         });
     }
