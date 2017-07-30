@@ -67,8 +67,17 @@ class StatisticDAO {
 
     finishMongoConnection(err, statistic, db) {
         if (err) throw err;
-        console.log("#mongo - registered new statistic: " + statistic.client);
+        if(statistic) console.log("#mongo - registered new statistic: " + statistic.client);
         db.close();
+    }
+
+    deleteAll(success) {
+        var that = this;
+        MongoClient.connect(uristring, function (err, db) {
+            db.collection("customer").drop();
+            that.finishMongoConnection(err, null, db);
+            success.call(this);
+        });
     }
 }
 

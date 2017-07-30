@@ -48,6 +48,22 @@ routes.reloadMostPopularFeatures = function(req, res) {
     });
 };
 
+routes.deleteStatistics = function(req, res) {
+    try {
+        var key = getJsonData(req.body.data, res).key;
+    } catch (err) {
+        res.status(400).send("Data received are different than expected: " + err);
+    }
+
+    if(process.env.DECRYPT_KEY === key) {
+        new StatisticDAO().deleteAll(function() {
+            res.status(202);
+        });
+    } else {
+        res.status(401).send("Unauthorized");
+    }
+};
+
 function getJsonData(data, res) {
     let jsonData = new SecurityService().decryptJSON(data);
     if(jsonData.token && jsonData.token !== process.env.SECURITY_TOKEN) {

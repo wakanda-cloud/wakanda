@@ -35,6 +35,7 @@ var routes = require('./routes');
 app.get('/listStatistics', routes.listStatisticsGet);
 app.post('/listStatistics', routes.listStatisticsPost);
 app.post('/registerStatistic', routes.registerStatistic);
+app.post('/deleteStatistics', routes.deleteStatistics);
 app.get('/fetchDashboardData', routes.fetchDashboardData);
 app.get('/reloadMostPopularFeatures', routes.reloadMostPopularFeatures);
 
