@@ -1,8 +1,8 @@
 "use strict";
 
-var StatisticData = require('../app/statisticData');
+var StatisticData = require('./Statistic');
 
-class ClientStatisticData {
+class Customer {
 
     constructor(data) {
         if(data === undefined) {
@@ -11,6 +11,14 @@ class ClientStatisticData {
             this._client = data.client;
             this._statisticData = data.statisticData;
         }
+    }
+
+    set id(id) {
+        this._id = id;
+    }
+
+    get id() {
+        return this._id.id;
     }
 
     get client() {
@@ -27,7 +35,7 @@ class ClientStatisticData {
 
     addStatisticData(statisticData) {
         if(!statisticData instanceof StatisticData) {
-            throw "ClienteStatisticData expect StatisticData dto on setttr property"
+            throw "ClienteStatisticData expect Statistic dto on setttr property"
         }
         this._statisticData.push(statisticData);
     }
@@ -40,4 +48,4 @@ class ClientStatisticData {
     }
 }
 
-module.exports = ClientStatisticData;
+module.exports = Customer;

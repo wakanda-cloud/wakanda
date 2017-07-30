@@ -1,16 +1,22 @@
 "use strict";
 var moment = require('moment');
+var crypto = require('crypto');
 
-class StatisticData {
+class Statistic {
 
     constructor(data) {
-        this.client = data["client"];
-        this.module = data["module"];
-        this.submodule = data["submodule"];
-        this.title = data["title"];
-        this.capturedDate = moment().format("DD/MM/YYYY - HH:mm:ss");
-        this.linkClicked = data["linkClicked"];
-        this.location = data["location"];
+        this.client = data["client"] ? data["client"] : data._client;
+        this.module = data["module"] ? data["module"] : data._module;
+        this.submodule = data["submodule"] ? data["submodule"] : data._submodule;
+        this.title = data["title"] ? data["title"] : data._title;
+        this.linkClicked = data["linkClicked"] ? data["linkClicked"] : data._linkClicked;
+        this.location = data["location"] ? data["location"] : data._location;
+
+        if(!data["capturedDate"] && !data._capturedDate) {
+            this.capturedDate = moment().format("DD/MM/YYYY - HH:mm:ss");
+        } else {
+            this.capturedDate = data["capturedDate"] ? data["capturedDate"] : data._capturedDate;
+        }
     }
 
     set client(client) {
@@ -78,4 +84,4 @@ class StatisticData {
     }
 }
 
-module.exports = StatisticData;
+module.exports = Statistic;

@@ -1,23 +1,29 @@
-var express = require('express');
-var app = express();
-var ejs = require('ejs')
+'use strict';
 
-var bodyparser = require('body-parser');
+let express = require('express');
+let app = express();
+let ejs = require('ejs');
+
+let bodyparser = require('body-parser');
 
 app.set('port', (process.env.PORT || 7000));
+
 app.listen(app.get('port'), function () {
+
+    let port = app.get('port');
+    console.log("Listening at port :%s", port)
 
     if(!process.env.DECRYPT_KEY) {
         process.env.DECRYPT_KEY = "qwertyui";
         throw "Decrypt key not configured";
     }
-    var host = process.env.host;
-    var port = app.get('port');
-    console.log("Listening at http://%s:%s", host, port)
 });
+
+
 app.use(bodyparser.urlencoded({extended: false}));
 
 app.use(bodyparser.text());
+app.use(bodyparser.json());
 
 process.on('uncaughtException', function (error) {
     console.log("uncaughtException :" + error);
@@ -29,6 +35,7 @@ var routes = require('./routes');
 app.get('/listStatistics', routes.listStatisticsGet);
 app.post('/listStatistics', routes.listStatisticsPost);
 app.post('/registerStatistic', routes.registerStatistic);
+app.post('/deleteStatistics', routes.deleteStatistics);
 app.get('/fetchDashboardData', routes.fetchDashboardData);
 app.get('/reloadMostPopularFeatures', routes.reloadMostPopularFeatures);
 
