@@ -13,7 +13,7 @@ class StatisticsByRegionWidget {
             if (clientData.statisticData && clientData.statisticData[0].location) {
                 this.pushStatisticLocation(clientData, clientCodes);
             } else {
-                this.pushClientLocation(clientData, clientCodes);
+                //this.pushClientLocation(clientData, clientCodes);
             }
         }
         return clientCodes;
